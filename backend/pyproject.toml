@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "batch-processing"
+version = "0.1.0"
+description = "FilesTalk Backend"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "5.2.3"
+djangorestframework = "3.15.2"
+django-cors-headers = "4.4.0"
+django-rq = "2.10.2"
+rq-dashboard = "0.8.0.2"
+drf-yasg = "1.21.7"
+djangorestframework-simplejwt = "5.3.1"
+openpyxl = "3.1.5"
+pytest-django = "4.9.0"
+docx2txt = "0.8"
+langchain = "0.3.21"
+langchain-community = "0.3.20"
+langchain-openai = "0.3.10"
+pandas = "2.2.3"
+pdf2image = "1.17.0"
+pypdf = "5.8.0"
+pytesseract = "0.3.13"
+python-docx = "1.1.2"
+python-dotenv = "1.0.1"
+requests = "2.32.3"
+tiktoken = "0.9.0"
+xlsxwriter = "3.2.2"
+setuptools = "78.0.2"
+gunicorn = "23.0.0"
+langchain-postgres = "0.0.13"
+psycopg = {version = "3.2.6", extras = ["binary"]}
+matplotlib = "3.10.1"
+urllib3 = "2.3.0"
+pylint = "3.3.6"
+pre-commit = "4.2.0"
+whitenoise = "^6.9.0"
+transformers = "^4.53.3"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+mypy = "^1.16.1"
+django-stubs = "^5.2.1"
+djangorestframework-stubs = "^3.16.0"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+warn_return_any = false
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = false
+disallow_untyped_decorators = false
+no_implicit_optional = true
+ignore_missing_imports = true
+
+[tool.ruff.lint]
+ignore = ["E402"]

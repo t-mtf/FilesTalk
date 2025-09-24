@@ -1,0 +1,52 @@
+services:
+  db:
+    container_name: postgres
+    image: dockerproxy.repos.tech.orange/pgvector/pgvector:pg16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+
+  backend:
+    container_name: django
+    build: .
+    image: django-image:1.0
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis_server
+    environment:
+      DJANGO_SUPERUSER_USERNAME: ${FILESTALK_USER}
+      DJANGO_SUPERUSER_PASSWORD: ${FILESTALK_PASSWORD}
+      DJANGO_SUPERUSER_EMAIL: ${FILESTALK_EMAIL}
+
+  redis_server:
+    container_name: redis_server
+    image: dockerproxy.repos.tech.orange/redis:7.4.1-bookworm
+    ports:
+      - "6379:6379"
+
+  worker:
+    container_name: rq_worker
+    build: .
+    image: rq-worker:1.0
+    command: rq worker
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis_server
+    environment:
+      - REDIS_URL=redis://redis_server:6379/0
+
+volumes:
+  postgres_data:
